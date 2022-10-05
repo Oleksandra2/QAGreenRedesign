@@ -3,7 +3,7 @@ title: Selectively Move Data Between In-Memory and Extended Tables QA Green One
 description: Move data between in-memory and extended tables. Set connection property values. Move data between in-memory and extended tables. Set connection property values. Move data between in-memory and extended tables. Set connection property values.
 auto_validation: true
 primary_tag: products>sap-hana-dynamic-tiering
-tags: [  tutorial>beginner, products>sap-hana, products>sap-hana-studio, topic>big-data, topic>sql, tutorial>license ]
+tags: [  tutorial>beginner, products>sap-hana, products>sap-hana-studio, topic>big-data, topic>sql ]
 ---
 ## Prerequisites
  - **Proficiency:** Beginner
