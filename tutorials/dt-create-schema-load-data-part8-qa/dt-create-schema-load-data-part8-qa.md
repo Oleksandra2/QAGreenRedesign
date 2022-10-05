@@ -16,7 +16,7 @@ tags: [tutorial>beginner, products>sap-hana, products>sap-hana-dynamic-tiering, 
  - Creating Multi-Store Tables
 
 ### Time to Complete
-**10 Min**.
+**140 Min**.
 
 ---
 
