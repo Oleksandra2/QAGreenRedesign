@@ -3,7 +3,7 @@ title: Importing Required Calculation Views QA Green Six
 description: Conversion and importation of calculation views for Dynamic Tiering Conversion and importation of calculation views for Dynamic Tiering Conversion and importation of calculation views for Dynamic Tiering Get to know the basics of modeling data with SAP Data Warehouse Cloud using graphical views. Get ready to explore the Data Builder, become familiar with SAP Data Warehouse Cloud and get hands-on with graphical views by using the free trial - or your own production tenant, if you have one.Get to know the basics of modeling data with SAP Data Warehouse Cloud using graphical views. 
 auto_validation: true
 primary_tag: products>sap-hana-dynamic-tiering
-tags: [ tutorial>beginner, products>sap-hana, products>sap-hana-dynamic-tiering, products>sap-hana-studio, topic>big-data, topic>sql, tutorial>license ]
+tags: [ tutorial>beginner, products>sap-hana, products>sap-hana-dynamic-tiering, products>sap-hana-studio, topic>big-data, topic>sql ]
 ---
 
 ## Prerequisites
