@@ -1,5 +1,5 @@
 ---
-title: Information View Conversion Seven QA Green
+title: Information View Conversion Seven QA Green Access Protected SAP Analytics Cloud Resources with OAuth Two-Legged 
 description: How to convert information views
 auto_validation: true
 primary_tag: products>sap-hana-dynamic-tiering
