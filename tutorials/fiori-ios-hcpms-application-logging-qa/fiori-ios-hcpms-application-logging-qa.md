@@ -1,5 +1,5 @@
 ---
-title: Application logging and tracing QA Green Seventeen
+title: Application logging and tracing QA Green Seventeen updated
 description: Logging and tracing using the SAP BTP SDK for iOS.
 auto_validation: true
 primary_tag: topic>abap-development
