@@ -275,7 +275,7 @@ Save your file `annotation.xml`.
 
 Between the `<Schema>` and `</Schema>` tags, your code should look like the following snippet. Once you have checked that your code is the same, save and a take a look at your second object page. It should now feature a header with the Sales Data name and more information about the product's sale.
 
-```XML [3-6, 8, 15-18]
+```XML [3-6,8,15-18]
 <Annotations Target="SAP.SEPMRA_C_PD_ProductType">
                 <Annotation Term="UI.SelectionFields">
                     <Collection>
