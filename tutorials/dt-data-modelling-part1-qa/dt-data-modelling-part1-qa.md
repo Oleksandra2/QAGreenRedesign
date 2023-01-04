@@ -1,5 +1,5 @@
 ---
-title: Adding Analytic Privileges and the SAP HANA Modeler Perspective QA Green Five
+title: Adding Analytic Privileges and the SAP HANA Modeler Perspective QA Green Five ttt
 description: Understanding the various types of Information Views used in SAP HANA to create analytical reports.
 auto_validation: true
 primary_tag: products>sap-hana-dynamic-tiering
