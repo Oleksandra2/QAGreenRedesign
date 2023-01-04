@@ -1,5 +1,5 @@
 ---
-title: Configure Object Pages Using SAP Fiori Tools QA Green  Thirty
+title: Configure Object Pages Using SAP Fiori Tools QA Green  Thirty upd
 description: Configure the object pages that can be accessed from your app using the various extensions available in SAP Fiori tools.
 auto_validation: true
 time: 40
