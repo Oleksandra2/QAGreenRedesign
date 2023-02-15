@@ -1,5 +1,5 @@
 ---
-title: Implement Image Classification Using a Trained Core ML Model and Vision Framework QA GreenTwenty Eight
+title: Implement Image Classification Using a Trained Core ML Model and Vision Framework QA GreenTwenty Eight updated
 description: Import a trained Core ML model and use the Vision framework to prepare a certain image for the classification, then use the classification result to fetch products of a certain product category from the sample data service.
 auto_validation: true
 primary_tag: topic>abap-development
