@@ -1,5 +1,5 @@
 ---
-title: Adding Our Union Calculation View into the Converted Data Model QA Green Nine
+title: Adding Our Union Calculation View into the Converted Data Model QA Green Nine updated
 description: Replacing old information model with new calculation view
 auto_validation: true
 primary_tag: products>sap-hana-dynamic-tiering
