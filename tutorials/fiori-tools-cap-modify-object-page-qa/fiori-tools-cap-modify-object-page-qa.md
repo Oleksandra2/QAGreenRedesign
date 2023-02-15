@@ -1,5 +1,5 @@
 ---
-title: Extend the Object Page by Adding More Functionality QA Green Twenty Nine
+title: Extend the Object Page by Adding More Functionality QA Green Twenty Nine updated
 description: Refine the object page by adding new fields and extend it with a new section leveraging the Flexible Programming Model.
 auto_validation: true
 time: 40
