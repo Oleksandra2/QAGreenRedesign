@@ -1,4 +1,4 @@
-﻿---
+---
 title: Prepare the RAP-Based Travel Service QA Green Thirty Two
 description: Prepare a travel service based on the SAP ABAP RESTful Application Programming Model (RAP).
 auto_validation: true
