@@ -3,8 +3,6 @@ title: Access a Classic Schema from SAP Web IDE Full-Stack QA Green Thirty Five
 description: Access data in a plain or replicated schema from an HDI container.
 auto_validation: true
 time: 20
-author_name: Thomas Jung
-author_profile: https://github.com/jung-thomas
 tags: [tutorial>beginner, products>sap-hana, tutorial>license]
 primary_tag: products>analytics
 
