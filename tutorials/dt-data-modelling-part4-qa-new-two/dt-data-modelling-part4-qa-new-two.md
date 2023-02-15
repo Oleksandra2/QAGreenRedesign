@@ -1,5 +1,5 @@
 ---
-title: Creating a Calculation View from the Union of In-Memory and Extended Tables QA Green Eight new-two
+title: Creating a Calculation View from the Union of In-Memory and Extended Tables QA Green Eight new-two updated
 description: How to use unions to create a calculation view
 auto_validation: true
 primary_tag: products>sap-hana-dynamic-tiering
