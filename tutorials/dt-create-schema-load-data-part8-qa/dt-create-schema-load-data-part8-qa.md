@@ -1,5 +1,5 @@
 ---
-title: Multi-Store Tables QA Green Four
+title: Multi-Store Tables QA Green Four updated
 description: Create Multi-Store Tables
 auto_validation: true
 primary_tag: products>sap-hana-dynamic-tiering
