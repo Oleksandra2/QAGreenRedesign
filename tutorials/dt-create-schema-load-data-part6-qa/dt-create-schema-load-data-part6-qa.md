@@ -1,5 +1,5 @@
 ---
-title: Migrate Records in Related Tables Using Stored Procedure QA Green Two
+title: Migrate Records in Related Tables Using Stored Procedure QA Green Two updated
 description: <em>Using a stored procedure to migrate records in related tables as a single transaction.</em>
 auto_validation: true
 primary_tag: products>sap-hana-dynamic-tiering
