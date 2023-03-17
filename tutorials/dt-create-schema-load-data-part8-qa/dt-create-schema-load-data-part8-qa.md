@@ -2,7 +2,7 @@
 title: Multi-Store Tables QA Green Four updated
 description: Create Multi-Store Tables
 auto_validation: true
-primary_tag: products>sap-hana-dynamic-tierin
+primary_tag: products>sap-hana-dynamic-tiering 
 tags: [tutorial>beginner, products>sap-hana, products>sap-hana-dynamic-tiering, products>sap-hana-studio, topic>big-data, topic>sql ]
 ---
 ## Prerequisites
