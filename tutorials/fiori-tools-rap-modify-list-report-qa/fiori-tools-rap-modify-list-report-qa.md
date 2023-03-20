@@ -294,7 +294,7 @@ Add the corresponding annotation `@ObjectModel.semanticKey` before the definitio
 define root view entity ZC_FE_TRAVEL_######
 ...
 ```
-
+test
 After saving and activating the file and refreshing the application, you will see the changed labels and content for the fields **Travel**, **Agency**, **Customer**, **Status** and **Last Changed At**.
 
 !![refine ids](IDsLabels_2.png)
