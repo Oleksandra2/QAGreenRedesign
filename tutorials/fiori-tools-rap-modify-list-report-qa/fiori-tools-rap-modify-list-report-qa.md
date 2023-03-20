@@ -299,6 +299,8 @@ After saving and activating the file and refreshing the application, you will se
 
 !![refine ids](IDsLabels_2.png)
 
+text
+
 
 [DONE]
 [ACCORDION-END]
