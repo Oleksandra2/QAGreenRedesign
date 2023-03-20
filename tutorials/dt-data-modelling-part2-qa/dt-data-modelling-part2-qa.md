@@ -27,6 +27,8 @@ SAP HANA studio offers a migration wizard for this task. We will guide you throu
 
 We will need to import some pre-defined views. Click **File** in the top-right corner, and then **Import**.
 
+test
+
 ![File > Import](import.png)
 
 Next, under the SAP HANA Content, select **Developer Mode**. Then, click **Next**.
