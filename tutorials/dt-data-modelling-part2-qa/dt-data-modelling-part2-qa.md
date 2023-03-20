@@ -51,7 +51,7 @@ The files should now appear in the right hand window. **Finish** to import these
 ![Packages added for tutorial](file-appear.png)
 
 It may take a while to import. Once it is complete, go over to your Systems navigation panel, and refresh the Content directory, by right-clicking the Content folder and selecting **Refresh**.
-
+test
 Open it up, and you should be able to see the attribute, analytic, and calculation views you have just imported.
 
 ![Views Imported](imported-views.PNG)
