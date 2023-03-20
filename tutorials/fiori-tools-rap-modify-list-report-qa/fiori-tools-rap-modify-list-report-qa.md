@@ -1,5 +1,5 @@
 ---
-title: Refine the List Report with Annotations QA Green Thirty One
+title: Refine the List Report with Annotations QA Green Thirty One ch
 description: Add additional annotations to show filter fields and columns on the list report as well as to allow the selection of data using a value help.
 auto_validation: true
 time: 30
@@ -254,7 +254,7 @@ You will achieve this by using specific annotations which are implemented within
 
 Add the `@EndUserText` and `@ObjectModel` annotations to the fields as shown in the coding fragments below.
 
-Annotation `@EndUserText.label` defines the column label for the related fields. `@ObjectModel.text.element` controls the source of the content shown for the related field. For field `TravelID` this will be the `Description` field from this view. `AgencyID` and `CustomerID` will get their content from the related field through the corresponding association.
+1. Annotation `@EndUserText.label` defines the column label for the related fields. `@ObjectModel.text.element` controls the source of the content shown for the related field. For field `TravelID` this will be the `Description` field from this view. `AgencyID` and `CustomerID` will get their content from the related field through the corresponding association.
 
 ```CDS
 @EndUserText.label: 'Travel'
@@ -281,7 +281,7 @@ OverallStatus,
 @EndUserText.label: 'Last Changed At'
 LocalLastChangedAt,
 ```
-The semantic key for the view will be `TravelID`. The content of the field will be highlighted, and the draft indicator will be shown while the Travel item is being worked on.
+2. The semantic key for the view will be `TravelID`. The content of the field will be highlighted, and the draft indicator will be shown while the Travel item is being worked on.
 
 Add the corresponding annotation `@ObjectModel.semanticKey` before the definition of the view.
 
@@ -300,8 +300,9 @@ After saving and activating the file and refreshing the application, you will se
 !![refine ids](IDsLabels_2.png)
 
 
-
+[DONE]
 [ACCORDION-END]
+
 [ACCORDION-BEGIN [Step 5: ](Implement value help for selection fields Customer and Status)]
 
 When you choose the value help icon of the selection field **Customer** in the filter bar, you get a dialog which provides the option to conditionally load data by the customer ID. For better usability you would rather select customer data like name or address from a list.
