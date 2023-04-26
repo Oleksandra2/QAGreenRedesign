@@ -90,7 +90,32 @@ For **published** Custom Business Objects **without a Draft version** you can im
     >
     >![Code Completion](CBO_logicCodeCompletion.png)
 
-    
+
+```ABAP
+    * set ID
+    IF bonusplan-id IS INITIAL.
+       SELECT MAX( id ) FROM yy1_bonusplan INTO @DATA(current_max_id).
+       bonusplan-id = current_max_id + 1.
+    ENDIF.
+    ```
+
+   - Set the Unit of Measure for the Bonus Percentages to `P1` which is the code for % (percent)
+
+    ```ABAP
+    * set percentage unit
+    bonusplan-lowbonuspercentage_u = bonusplan-highbonuspercentage_u = 'P1'.
+    ```
+
+   - Set the Employee Name from the Employee ID
+    >**Hint:** Extensibility offers Helper class `CL_ABAP_CONTEXT_INFO` with method `GET_USER_FORMATTED_NAME` that needs a user ID to return its formatted name
+
+    ```ABAP
+    * set Employee Name
+    IF bonusplan-employeeid IS NOT INITIAL.
+       bonusplan-employeename = cl_abap_context_info=>get_user_formatted_name( bonusplan-employeeid ).
+    ENDIF.
+    ```
+
 5. Check user input to determine the `isconsistent` property.
 
    - Check that `ValidityStartDate` and `ValidityEndDate` are set and that `ValidityStartDate` is earlier in time than `ValidityEndDate`.
