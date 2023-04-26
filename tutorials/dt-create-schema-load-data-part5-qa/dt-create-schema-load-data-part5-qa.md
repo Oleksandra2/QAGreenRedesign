@@ -81,7 +81,14 @@ For **published** Custom Business Objects **without a Draft version** you can im
 4. Determine and set static values:
 
    - Set the key field `ID` if still initial.
-
+    >**Hint:** Changing Parameter `bonusplan` enables you to read current node data and change it.
+    >
+    >**Hint:** You can read existing Bonus Plan data via the CDS View that is named as the Business Object's Identifier (here: `YY1_BONUSPLAN`).
+    >
+    >**Hint:** With the key combination **CTRL + Space** you can access the very helpful code completion.
+    >
+    >![Code Completion](CBO_logicCodeCompletion.png)
+  
 ```ABAP
     * set ID
     IF bonusplan-id IS INITIAL.
