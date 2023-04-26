@@ -9,6 +9,9 @@ time: 20
 # Implement Logic for a Custom Business Object bug test
 <!-- description -->Control your custom business object application with ABAP logic
 
+## Next Steps
+- [Use OData Metadata to dynamically create the columns](https://developers.sap.com/tutorials/xsa-sapui5-metadata.html)
+
 ## Prerequisites  
 - **Authorizations:** Your user needs a business role with business catalog **Extensibility – Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`) and **Extensibility - Custom Logic** (ID: `SAP_CORE_BC_EXT_BLE`) in your **S/4HANA Cloud** system
 
