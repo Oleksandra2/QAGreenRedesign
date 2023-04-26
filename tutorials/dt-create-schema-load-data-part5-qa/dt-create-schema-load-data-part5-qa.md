@@ -160,6 +160,8 @@ In the **Test** section you can test the draft or latest published version of th
 - Test test test
 
 2. Switch from **Importing Parameters** to **Changing Parameters** view, this will add the **Value Out** column.
+- Test test test 2
+- Test test test 3
 
 3. Expand the `BONUSPLAN` node
 
