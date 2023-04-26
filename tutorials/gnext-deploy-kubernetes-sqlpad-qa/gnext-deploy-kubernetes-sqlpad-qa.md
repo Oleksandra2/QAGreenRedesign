@@ -1,5 +1,5 @@
 ---
-title: Play with the SAP HANA database on Google Kubernetes cluster QA Green Thirty Four
+title: ● Play with the SAP HANA database on Google Kubernetes cluster QA Green Thirty Four
 description: Deploy SAP HANA and a web SQL client on Google Kubernetes Engine
 primary_tag: products>sap-hana\,-express-edition
 tags: [  tutorial>beginner, topic>big-data, topic>cloud, products>sap-hana, products>sap-hana\,-express-edition ]
