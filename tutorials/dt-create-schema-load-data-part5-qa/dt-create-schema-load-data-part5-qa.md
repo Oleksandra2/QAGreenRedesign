@@ -6,7 +6,7 @@ tags: [  tutorial>beginner, tutorial>license, topic>abap-extensibility, topic>cl
 time: 20
 ---
 
-# Implement Logic for a Custom Business Object
+# Implement Logic for a Custom Business Object bug test
 <!-- description -->Control your custom business object application with ABAP logic
 
 ## Prerequisites  
