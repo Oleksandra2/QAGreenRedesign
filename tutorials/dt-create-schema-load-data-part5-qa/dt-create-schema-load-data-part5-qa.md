@@ -1,125 +1,297 @@
 ---
-title: Selectively Move Data Between In-Memory and Extended Tables QA Green One
-description: Move data between in-memory and extended tables. Set connection property values. Move data between in-memory and extended tables. Set connection property values. Move data between in-memory and extended tables. Set connection property values.
+parser: v2
 auto_validation: true
-primary_tag: products>sap-hana-dynamic-tiering
-tags: [  tutorial>beginner, products>sap-hana, products>sap-hana-studio, topic>big-data, topic>sql ]
----
-## Prerequisites
- - **Proficiency:** Beginner
- - **Tutorials:** [Converting Between an In-Memory Table and an Extended Table](https://developers.sap.com/tutorials/dt-create-schema-load-data-part4.html)
-
-## Next Steps
- - **Tutorials:** [Migrate Records in Related Tables Using Stored Procedure](https://developers.sap.com/tutorials/dt-create-schema-load-data-part6.html)
-
-## Details
-### You will learn
- - Migrating data between in-memory and Dynamic Tiering table instances.
- - Setting "Auto Commit" and "Isolation Level" property values.
-
-### Time to Complete
-**10 Min**.
-
+primary_tag: topic>abap-extensibility
+tags: [  tutorial>beginner, tutorial>license, topic>abap-extensibility, topic>cloud, products>sap-s-4hana ]
+time: 20
 ---
 
-[ACCORDION-BEGIN [Step 1: ](Delete Data From Extended Tables)]
-Currently the `LINEITEM_DT` table contains identical information to the `LINEITEM_CS` table. In order to easily be able to notice that data has been selectively moved from one table to another, we will first remove all data from the `LINEITEM_DT` table. To do so, copy and paste the script below into the SQL console. Then press the Execute button to delete the data in the table.
+# Implement Logic for a Custom Business Object
+<!-- description -->Control your custom business object application with ABAP logic
 
-In **SAP HANA Administration Console** perspective, go to the **System** view on the left side. Select your system and open a SQL console.
-
-![Open SQL Console](sql-console.png)
-
-``` sql
-TRUNCATE TABLE "TPCH"."LINEITEM_DT";
-
-SELECT * FROM "TPCH"."LINEITEM_DT";
-```
-
-![Delete Data](delete-data.png)
-
-The result should be empty to indicate the data has been deleted.
-
-![Empty Result](empty-result.png)
-
-[DONE]
-
-[ACCORDION-END]
-
-[ACCORDION-BEGIN [Step 2: ](Turning off Auto Commit)]
-By default, SQL Console connections from HANA Studio to your HANA system are created with the Auto Commit option turned "On". The Auto Commit option automatically issues a commit after each statement that is executed against the server. You need to change Auto Commit to "Off" in order to execute the migration script, which executes two statements, as a single atomic transaction.
-
-Open a new SQL console connected to your system, right click on your system and select **Open SQL Console**.
-
-![Open SQL Console](sql-console.png)
-
-To check and change the "Auto Commit" setting, click to open the **Properties** tab in the bottom right panel.
-
-![Properties](properties.png)
-
->Note: If the Properties tab is blank, double check that you are connected to a HANA server and then click inside the **Properties** tab to set the focus and press the **F5** function key to refresh the view.
-
-Click on the value cell for **Auto Commit** and change it to **Off**.
-
-![Auto Commit](auto-commit.png)
-
-[DONE]
-
-[ACCORDION-END]
-
-[ACCORDION-BEGIN [Step 3: ](Setting the Isolation Level)]
-Database isolation levels determine how the database server handles concurrency when multiple users may be reading and writing to the database at the same time. The default isolation level is "READ COMMITTED" which ensures that any given statement only sees committed records. The "READ COMMITTED" isolation level does not ensure consistency between statements even within a single transaction.
-
-Since the process of migrating data between in-memory and extended tables requires both an insert and a delete statement, you need to increase the isolation level to either "REPEATABLE READ" or "SERIALIZABLE" both of which ensure consistency across multiple statements within a single transaction.
-
-Note:	Since HANA uses snapshot isolation, "REPEATABLE READ" and "SERIALIZABLE" isolation levels are identical. For more information on Isolation Levels in SAP HANA, see the [SET TRANSACTION Statement (Transaction Management)](https://help.sap.com/saphelp_hanaplatform/helpdata/en/20/fdf9cb75191014b85aaa9dec841291/content.htm).
-
-To change the isolation level, click on the **Isolation Level** field in the **Properties** tab and choose **REPEATABLE READ**.
-
-![Isolation Level](isolation.png)
-
-Left click on the SQL console, and you should be prompted by a "Rollback Connection" pop up. Click **OK** to set the isolation level.
-
-![Rollback Connection](rollback-connection.png)
+## Prerequisites  
+- **Authorizations:** Your user needs a business role with business catalog **Extensibility – Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`) and **Extensibility - Custom Logic** (ID: `SAP_CORE_BC_EXT_BLE`) in your **S/4HANA Cloud** system
 
 
-[ACCORDION-END]
+## You will learn  
+- How to enable logic implementation for a custom business object
+- How to implement changing custom business object database
+- How to implement checking a custom business object before save
+- How to implement saving or reject saving of a custom business object
+- How to implement informing the end user about save
+- How to ease development and test already while doing it
 
-[ACCORDION-BEGIN [Step 4: ](Migrating Data)]
-Copy and paste the script below into the SQL console. Press the Execute button to execute the migration. Ensure the entire script executed correctly. The script below copies records older than 2015-1-1 from the in-memory `LINEITEM_CS` table to the extended table `LINEITEM_DT` in Dynamic Tiering. It then deletes the moved records from the `LINEITEM_CS` table to free up storage space in-memory now that the data has been copied to Dynamic Tiering. The "`WHERE`" statement in the script is used to selectively choose data. Specifically, in the script above, the "`WHERE`" statement is used to select data from the `LINEITEM_CS` table whose "`L_SHIPDATE`" is before January 1st, 2015.
+## Intro
+At the end your application will set some data automatically and reject a save with an error message for the causing inconsistencies.
 
-``` sql
-INSERT INTO "TPCH"."LINEITEM_DT"
-  (SELECT * FROM "TPCH"."LINEITEM_CS"
-    WHERE "TPCH"."LINEITEM_CS"."L_SHIPDATE" < '2015-1-1');
+**Our Example**
 
-DELETE FROM "TPCH"."LINEITEM_CS"
-  WHERE "TPCH"."LINEITEM_CS"."L_SHIPDATE" < '2015-1-1';
+A several tutorials spanning example will show extensibility along custom Bonus Management applications.
 
-COMMIT;
-```
+In the first parts a Manager wants to define business objects **Bonus Plan** for employees. A Bonus Plan is there to save employee specific rules for bonus entitlement.
+## Additional Information
+- **SAP S/4HANA Cloud Release** (tutorial's last update): 2305
 
-> Because you have turned off Auto Commit, you now need to explicitly commit the transaction yourself using the "COMMIT" statement.
+---
+### Make key field Read-Only
 
-Table `LINEITEM_CS` has records with ship dates ranging from Jan 2, 2012 (2012-1-2) to Dec 1, 2018 (2018-12-1). For the purpose of this lesson, you will be migrating records older than Jan 1, 2015 (2015-1-1) from the `ORDERS_CS` table to the `ORDERS_DT` table.
+As there was no backend implementation to set the mandatory key field **`ID`** so far, we were forced to set it from the UI to be able to save instances. Now, as we will implement the logic to set the ID in backend and nowhere else, we will set that key field to Read-Only for the UI.
 
-![Migrate Data](migrate.png)
+1. Select the business object **Bonus Plan** in Custom Business Objects application
 
-Verify that the data has been inserted into the **`LINEITEM_DT`** table either by executing the query below or by right clicking on the table in the catalogue and choosing **Open Data Preview**.
+2. Start Edit Mode by executing the **Edit Draft** action.
 
-``` sql
- SELECT * FROM "TPCH"."LINEITEM_DT";
-```
+3. Switch to **Fields** section.
 
-![Verify Extended Storage](verify-dt.png)
+4. **Check** the Read-Only box for key field **`ID`**.
 
-Verify that the data has been deleted from the **`LINEITEM_CS`** table by executing the query below and confirming that no records are returned.
+    ![Check Read-Only box](CBO_checkReadOnly.png)
 
-``` sql
-SELECT * FROM "TPCH"."LINEITEM_CS" WHERE "TPCH"."LINEITEM_CS"."L_SHIPDATE" < '2015-1-1';
-```
 
-![Verify Column Store](verify-cs.png)
+### Enable logic development
 
-[DONE]
 
-[ACCORDION-END]
+1. Switch to **General Information** section.
+
+2. **Check** the box for **Determination and Validation**
+
+    ![Check Determination and Validation box](CBO_checkDeterminationAndValidation.png)
+
+3. **Publish** the business object.
+
+Now you are enabled to implement **Determination** logic which is called **after each modification** to a Bonus Plan instance from the UI, as well as **Validation** logic which is called **before each save** of an instance. Only in Determination logic you are able to change custom business object data. Validation logic is intended to check the business object, decide whether a save can be performed and provide the end user a message with helpful information like successful save or the reason for which a save had to be rejected.  
+
+
+### Implement After Modification logic
+
+For **published** Custom Business Objects **without a Draft version** you can implement logic.
+
+1. Switch to **Logic** section.
+   
+    ![Switch to Logic section](CBO_LogicSection.png)
+
+2. Enter the After Modification Event Logic which is a Determination Logic.
+   
+    ![Enter After Modification logic](CBO_go2AfterModify.png)
+
+3. Being in the **Develop** section click **Edit** to change the currently published logic which is empty still.
+
+    ![Create Draft of logic implementation](CBO_logicEdit.png)
+
+4. Determine and set static values:
+
+   - Set the key field `ID` if still initial.
+
+    >**Hint:** Changing Parameter `bonusplan` enables you to read current node data and change it.
+    >
+    >**Hint:** You can read existing Bonus Plan data via the CDS View that is named as the Business Object's Identifier (here: `YY1_BONUSPLAN`).
+    >
+    >**Hint:** With the key combination **CTRL + Space** you can access the very helpful code completion.
+    >
+    >![Code Completion](CBO_logicCodeCompletion.png)
+
+    ```ABAP
+    * set ID
+    IF bonusplan-id IS INITIAL.
+       SELECT MAX( id ) FROM yy1_bonusplan INTO @DATA(current_max_id).
+       bonusplan-id = current_max_id + 1.
+    ENDIF.
+    ```
+
+   - Set the Unit of Measure for the Bonus Percentages to `P1` which is the code for % (percent)
+
+    ```ABAP
+    * set percentage unit
+    bonusplan-lowbonuspercentage_u = bonusplan-highbonuspercentage_u = 'P1'.
+    ```
+
+   - Set the Employee Name from the Employee ID
+    >**Hint:** Extensibility offers Helper class `CL_ABAP_CONTEXT_INFO` with method `GET_USER_FORMATTED_NAME` that needs a user ID to return its formatted name
+
+    ```ABAP
+    * set Employee Name
+    IF bonusplan-employeeid IS NOT INITIAL.
+       bonusplan-employeename = cl_abap_context_info=>get_user_formatted_name( bonusplan-employeeid ).
+    ENDIF.
+    ```
+
+5. Check user input to determine the `isconsistent` property.
+
+   - Check that `ValidityStartDate` and `ValidityEndDate` are set and that `ValidityStartDate` is earlier in time than `ValidityEndDate`.
+  
+   - Check that Factors and Percentages are set correctly (all > 0, Percentages < 100, `LowBonusAssignmentFactor` < `HighBonusAssignmentFactor`)
+  
+   - Check that Employee ID is set
+
+    ```ABAP
+    * consistency check START
+    IF bonusplan-validitystartdate IS INITIAL
+    OR bonusplan-validityenddate IS INITIAL
+    OR bonusplan-validitystartdate GE bonusplan-validityenddate
+    OR bonusplan-lowbonusassignmentfactor IS INITIAL
+    OR bonusplan-highbonusassignmentfactor IS INITIAL
+    OR bonusplan-lowbonuspercentage_v IS INITIAL
+    OR bonusplan-highbonuspercentage_v IS INITIAL
+    OR bonusplan-lowbonuspercentage_v GE 100
+    OR bonusplan-highbonuspercentage_v GE 100
+    OR bonusplan-lowbonusassignmentfactor GE bonusplan-highbonusassignmentfactor
+    OR bonusplan-employeeid IS INITIAL.
+        bonusplan-isconsistent = abap_false.
+    ELSE.
+        bonusplan-isconsistent = abap_true.
+    ENDIF.
+    * consistency check END
+    ```
+
+6. **Save** the logic.
+
+    ![Save logic without publishing](CBO_logicSave.png)
+
+
+Alternatively you can also change the logic in the **Compare** section which allows you to see for example the Draft Version and Latest Published Version next to each other.
+
+![View Draft and/or Published Version of logic](CBO_logicCompareVersions.png)
+
+### Test during development and publish the logic
+
+In the **Test** section you can test the draft or latest published version of the logic with example runtime data. This data can also be saved as variant for later usages.
+
+1. Switch to **Test** section
+
+2. Switch from **Importing Parameters** to **Changing Parameters** view, this will add the **Value Out** column.
+
+3. Expand the `BONUSPLAN` node
+
+4. Enter following data to the **Value In** column
+
+    | Field	Name | Field Value |
+    |------------|-------------|
+    | `validitystartdate` | `2017-01-01` |
+    | `validityenddate` | `2017-12-31` |
+    | `targetamount_v` | `1000` |
+    | `targetamount_c` | `EUR` |
+    | `lowbonusassignmentfactor` | `1` |
+    | `highbonusassignmentfactor` | `3` |
+    | `lowbonuspercentage_v` | `10` |
+    | `highbonuspercentage_v` | `20` |
+    | `employeeid` | `<any>` |
+
+    `employeeid` `<any>` shall be the one of a sales person that created sales orders with a Net Amount of more than 3000.00 EUR in 2017 and that are completed.
+
+5. Execute the **Test** action
+
+6. A message toast appears telling that the test was executed
+
+7. You can see the node data after your logic was executed in the **Value Out** column.
+
+    You can see that your logic works as `id`, `*percentage_u` fields and `employename` are filled as expected and `isconsistent` is 'X'.
+
+![Test logic](CBO_logicTest.png)
+
+Go back to **Develop** section and **Publish** the After Modification Logic.
+
+
+### Implement Before Save logic
+
+1. Being in After Modification logic you can get to Before Save Logic this way:
+
+    - Go Back in application
+     
+        ![Go Back in application](CBO_applicationBack.png)
+
+    - In Tab "Logic", go to section "Determination and Validation"
+
+2. **Implement** Before Save event with following functionality
+
+    - If the bonus plan is consistent, it can be continued to save, if not save shall be rejected. In case of save no further processing is needed and logic can be left.
+        >**Hint:** Exporting parameter valid must be set to true for save and to false for save rejection
+
+        ```ABAP
+        * decide about save rejection
+        IF bonusplan-isconsistent EQ abap_true.
+            valid = abap_true.
+            RETURN.
+        ELSE.
+            valid = abap_false.
+        ENDIF.
+        ```
+
+    - If the bonus plan is not consistent, write the first found error into the message and end the logic processing.
+    These are the possible errors in detail:
+        - `ValidityStartDate` and `ValidityEndDate` must be set
+        - `ValidityStartDate` must be earlier in time than `ValidityEndDate`
+        - Factors and Percentages must be > 0
+        - Percentages must be < 100
+        - LowBonusAssignmentFactor must be < HighBonusAssignmentFactor
+        - Employee ID must be set
+
+        ```ABAP
+        * consistency error message START
+        IF bonusplan-validitystartdate IS INITIAL OR bonusplan-validityenddate IS INITIAL.
+            message = 'Validity Period must not be empty.'.
+            RETURN.
+        ELSEIF bonusplan-validitystartdate GE bonusplan-validityenddate.
+            CONCATENATE 'Validity End Date' bonusplan-validityenddate 'must be later than Validity Start Date' bonusplan-validitystartdate '!' INTO message SEPARATED BY space.
+            RETURN.
+        ENDIF.
+
+        IF bonusplan-targetamount_v IS INITIAL.
+            message = 'Target Amount must be over 0!'.
+            RETURN.
+        ENDIF.
+
+        IF bonusplan-targetamount_c IS INITIAL.
+            message = 'Target Amount Currency must be set!'.
+            RETURN.
+        ENDIF.
+
+        IF bonusplan-lowbonusassignmentfactor IS INITIAL
+         OR bonusplan-highbonusassignmentfactor IS INITIAL.
+            message = 'Assignment Factors must be over 0!'.
+            RETURN.
+        ENDIF.
+
+        IF bonusplan-lowbonuspercentage_v IS INITIAL
+         OR bonusplan-highbonuspercentage_v IS INITIAL.
+            message = 'Percentages must be over 0!'.
+            RETURN.
+        ENDIF.
+
+        IF bonusplan-lowbonuspercentage_v GE 100
+         OR bonusplan-highbonuspercentage_v GE 100.
+            message = 'Percentage must be below 100!'.
+            RETURN.
+        ENDIF.
+
+        IF bonusplan-lowbonusassignmentfactor GE bonusplan-highbonusassignmentfactor.
+            message = 'Low Bonus Factor must be smaller than High Bonus Factor!'.
+            RETURN.
+        ENDIF.
+
+        IF bonusplan-employeeid IS INITIAL.
+            message = 'Employee ID must be set!'.
+            RETURN.
+        ENDIF.
+        * consistency error message  END
+        ```
+
+3. **Test** and **Publish** the Before Save Logic
+
+
+### Test via the UI
+
+Once ensured that both logic implementations were successfully published you can start testing the Application like an end user via the UI.
+
+1. **Open** the Bonus Plan application
+2. **Open** the Bonus Plan with ID `1`
+3. **Edit** this Bonus Plan
+4. **Enter** value `10` into field **Low Bonus Percentage**
+5. **Save** the Bonus plan. You can see that your business logic works as the Percentage Units and the Employee Name get filled, but save fails due to the validation error messages for missing percentages.
+6. **Enter** value `20` into field **High Bonus Percentage**
+7. **Save** the Bonus Plan. Now it will not be rejected.
+
+
+### Test yourself
+
+
+---
