@@ -1,5 +1,5 @@
 ---
-title: View Data Across Both In-Memory and Dynamic Tiering Tables Using a SQL View QA Green Three Long title Long title  Long title Long title Long title tt 
+title: View Data Across Both In-Memory and Dynamic Tiering Tables Using a SQL View QA Green Three Long title Long title edited 
 description: Create and use a SQL view to query data from both in-memory and Dynamic Tiering tables.
 auto_validation: true
 primary_tag: products>sap-hana-dynamic-tiering
