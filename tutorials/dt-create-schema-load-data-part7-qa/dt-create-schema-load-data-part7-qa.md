@@ -4,7 +4,7 @@ description: Create and use a SQL view to query data from both in-memory and Dyn
 auto_validation: true
 primary_tag: products>sap-hana-dynamic-tiering
 tags: [  tutorial>beginner, products>sap-hana, products>sap-hana-dynamic-tiering, products>sap-hana-studio, topic>big-data, topic>sql, software-product>sap-successfactors-employee-central-service-center]
-[ Dmytro Ivanov > https://github.com/IvanovDmytroA, Oleksandra Kovtunenko > https://github.com/Oleksandra2 ] 
+contributors: [ Dmytro Ivanov > https://github.com/IvanovDmytroA, Oleksandra Kovtunenko > https://github.com/Oleksandra2 ] 
 ---
 
 ## Prerequisites
