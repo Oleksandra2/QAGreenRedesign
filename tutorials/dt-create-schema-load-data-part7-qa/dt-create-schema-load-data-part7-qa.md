@@ -6,6 +6,7 @@ primary_tag: products>sap-hana-dynamic-tiering
 tags: [  tutorial>beginner, products>sap-hana, products>sap-hana-dynamic-tiering, products>sap-hana-studio, topic>big-data, topic>sql, software-product>sap-successfactors-employee-central-service-center]
 [ Dmytro Ivanov > https://github.com/IvanovDmytroA, Oleksandra Kovtunenko > https://github.com/Oleksandra2 ] 
 ---
+
 ## Prerequisites
  - **Proficiency:** Beginner
  - **Tutorials:** [Migrate Records in Related Tables Using Stored Procedure](https://developers.sap.com/tutorials/dt-create-schema-load-data-part6.html)
